@@ -12,3 +12,11 @@ Run MongoDB:
 
 	brew services start mongodb-community@4.4	
 	
+Stop MongoDB:
+	
+	brew services stop mongodb-community@4.4
+	
+Connect MongoDB:
+
+	mongo
+	
