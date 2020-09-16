@@ -3,10 +3,12 @@ package com.privado.template.server.bean;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
 @Data
+@Document(collection = "templates")
 public class Template {
 
 	@Id
@@ -14,11 +16,8 @@ public class Template {
 
 	private String type;
 	private String entity;
-	private int customerId;
+	private String customerId;
 	private String law;
 	private List<Field> fields;
-
-	public Template() {
-	}
 
 }
