@@ -18,6 +18,12 @@ import com.privado.template.server.assembler.TemplateAssembler;
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.service.TemplateService;
 
+/**
+ * REST Controller for APIs related to {@link Template}
+ * 
+ * @author denniskbijo
+ *
+ */
 @RestController
 @RequestMapping("templates")
 public class TemplateController {

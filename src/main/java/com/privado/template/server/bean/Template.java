@@ -7,6 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+/**
+ * Model corresponding to Template
+ * 
+ * @author denniskbijo
+ *
+ */
 @Data
 @Document(collection = "templates")
 public class Template {

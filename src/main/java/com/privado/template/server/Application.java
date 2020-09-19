@@ -31,6 +31,11 @@ public class Application implements CommandLineRunner {
 
 	}
 
+	/**
+	 * Inserts the templates to database.
+	 * 
+	 * @throws IOException
+	 */
 	private void initDatabase() throws IOException {
 		repository.deleteAll();
 
@@ -60,12 +65,11 @@ public class Application implements CommandLineRunner {
 				+ "				\"request_type\" : \"GET\"\n" + "			}\n" + "		}, \n"
 				+ "		{ \"field\" : \"dpo_contact_details\", \"label\" : \"Data Protection Officer Contact Details\", \"data_type\" :\"long-text\", \"default\" : \"Type contact details here..\", \"field_type\":	\"contact_details\", \"field_type_label\":	\"Contact Details\", \"is_removable\" : false, \"mandatory\": false}\n"
 				+ "	]\n" + "}\n";
-		log.info(template1);
 
-		log.info("Preloading " + repository.save(mapper.readValue(template1, Template.class)));
-		log.info("Preloading " + repository.save(mapper.readValue(template2, Template.class)));
-		log.info("Preloading " + repository.save(mapper.readValue(template3, Template.class)));
-		// fetch all customers
+		log.info("Preloading Templates: " + repository.save(mapper.readValue(template1, Template.class)));
+		log.info(repository.save(mapper.readValue(template2, Template.class)).toString());
+		log.info(repository.save(mapper.readValue(template3, Template.class)).toString());
+		// Fetch all templates
 		System.out.println("Templates found with findAll():");
 		System.out.println("-------------------------------");
 		for (Template template : repository.findAll()) {

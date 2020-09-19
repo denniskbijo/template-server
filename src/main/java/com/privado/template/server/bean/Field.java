@@ -8,6 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
+/**
+ * Model corresponding to a field description in {@link Template}
+ * 
+ * @author denniskbijo
+ *
+ */
 @Data
 public class Field {
 

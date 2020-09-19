@@ -11,6 +11,12 @@ import org.springframework.stereotype.Component;
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.controller.TemplateController;
 
+/**
+ * Creates hypermedia links for template for Spring HATEOS
+ * 
+ * @author denniskbijo
+ *
+ */
 @Component
 public class TemplateAssembler implements RepresentationModelAssembler<Template, EntityModel<Template>> {
 

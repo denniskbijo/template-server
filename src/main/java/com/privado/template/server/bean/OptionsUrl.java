@@ -6,6 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
+/**
+ * Model corresponding to options_url in
+ * {@link com.privado.template.server.bean.Field}
+ * 
+ * @author denniskbijo
+ *
+ */
 @Data
 public class OptionsUrl {
 

@@ -9,8 +9,15 @@ import org.springframework.stereotype.Component;
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.repo.TemplateRepository;
 
+/**
+ * Business logic related to {@link Template}
+ * 
+ * @author denniskbijo
+ *
+ */
 @Component
 public class TemplateService {
+
 	@Autowired
 	private TemplateRepository repo;
 
