@@ -12,4 +12,11 @@ import com.privado.template.server.bean.Template;
  */
 public interface TemplateRepository extends MongoRepository<Template, String> {
 
+	/**
+	 * Gets the Template for the given customerId
+	 * 
+	 * @param customerId
+	 * @return
+	 */
+	public Template findByCustomerId(String customerId);
 }
