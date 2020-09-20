@@ -25,7 +25,7 @@ import com.privado.template.server.service.TemplateService;
  *
  */
 @RestController
-@RequestMapping("templates")
+@RequestMapping("te")
 public class TemplateController {
 
 	@Autowired
@@ -41,10 +41,19 @@ public class TemplateController {
 
 		return CollectionModel.of(templates, linkTo(methodOn(TemplateController.class).getTemplates()).withSelfRel());
 	}
+
 	@GetMapping("/{id}")
 	public EntityModel<Template> getTemplateById(@PathVariable String id) {
 		Template template = templateService.getTemplateById(id);
 		return templateAssembler.toModel(template);
 
 	}
+
+	@GetMapping("/customer/{customerId}/templates")
+	public EntityModel<Template> getTemplateByCustomerId(@PathVariable String customerId) {
+		Template template = templateService.getTemplateByCustomerId(customerId);
+		return templateAssembler.toModel(template);
+
+	}
+
 }
