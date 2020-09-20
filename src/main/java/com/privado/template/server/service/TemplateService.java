@@ -30,4 +30,14 @@ public class TemplateService {
 
 		return repo.findAll();
 	}
+
+	/**
+	 * Gets the Template for the given customerId
+	 * 
+	 * @param customerId
+	 * @return
+	 */
+	public Template getTemplateByCustomerId(String customerId) {
+		return repo.findByCustomerId(customerId);
+	}
 }
