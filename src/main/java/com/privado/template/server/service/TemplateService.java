@@ -3,6 +3,7 @@ package com.privado.template.server.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,8 @@ import com.privado.template.server.bean.Template;
 import com.privado.template.server.exception.DocumentNotFoundException;
 import com.privado.template.server.repo.TemplateRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Business logic related to {@link Template}
  * 
@@ -19,6 +22,7 @@ import com.privado.template.server.repo.TemplateRepository;
  *
  */
 @Component
+@Slf4j
 public class TemplateService {
 
 	@Autowired
@@ -42,12 +46,23 @@ public class TemplateService {
 	 * @throws DocumentNotFoundException
 	 */
 	public Template getTemplateByCustomerId(String customerId) throws DocumentNotFoundException {
-
+		validateCustomerId(customerId);
+		log.debug("customerId: {}", customerId);
 		List<Template> resultTemplates = repo.findByCustomerId(customerId);
 		if (!resultTemplates.isEmpty())
 			return resultTemplates.get(0);
 		else
 			throw new DocumentNotFoundException("No Template found for customer: " + customerId);
+	}
+
+	private void validateCustomerId(String customerId) {
+		// Validates if the customerId is numeric
+		Pattern pattern =Pattern.compile("-?\\d+");
+
+		if (!pattern.matcher(customerId).matches()) {
+			throw new NumberFormatException("CustomerId: " + customerId + " is not a number. Expected numeric value.");
+		}
+
 	}
 
 	/**

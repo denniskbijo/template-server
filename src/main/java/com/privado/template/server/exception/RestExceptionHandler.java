@@ -36,4 +36,13 @@ class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		apiError.setMessage(ex.getMessage());
 		return buildResponseEntity(apiError);
 	}
+
+	@ResponseBody
+	@ExceptionHandler(NumberFormatException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	private ResponseEntity<Object> handleCustomerIdNumberFormat(NumberFormatException ex) {
+		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+		apiError.setMessage(ex.getMessage());
+		return buildResponseEntity(apiError);
+	}
 }
