@@ -30,7 +30,7 @@ class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ResponseBody
 	@ExceptionHandler(DocumentNotFoundException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	private ResponseEntity<Object> handleEntityNotFound(DocumentNotFoundException ex) {
 		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
 		apiError.setMessage(ex.getMessage());
