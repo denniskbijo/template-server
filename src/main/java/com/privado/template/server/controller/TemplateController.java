@@ -11,11 +11,13 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.privado.template.server.assembler.TemplateAssembler;
 import com.privado.template.server.bean.Template;
+import com.privado.template.server.exception.DocumentNotFoundException;
 import com.privado.template.server.service.TemplateService;
 
 /**
@@ -50,8 +52,16 @@ public class TemplateController {
 	}
 
 	@GetMapping("/customer/{customerId}/templates")
-	public EntityModel<Template> getTemplateByCustomerId(@PathVariable String customerId) {
+	public EntityModel<Template> getTemplateByCustomerId(@PathVariable String customerId)
+			throws DocumentNotFoundException {
 		Template template = templateService.getTemplateByCustomerId(customerId);
+		return templateAssembler.toModel(template);
+
+	}
+
+	@PostMapping("/customer/{customerId}/templates")
+	public EntityModel<Template> prepareTemplateForCustomerId(@PathVariable String customerId) {
+		Template template = templateService.prepareTemplateForCustomerId(customerId);
 		return templateAssembler.toModel(template);
 
 	}
