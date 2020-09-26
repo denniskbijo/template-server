@@ -1,6 +1,9 @@
 package com.privado.template.server.repo;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.privado.template.server.bean.Template;
 
@@ -18,5 +21,7 @@ public interface TemplateRepository extends MongoRepository<Template, String> {
 	 * @param customerId
 	 * @return
 	 */
-	public Template findByCustomerId(String customerId);
+	@Query("{'customerId' : ?0}")
+	public List<Template> findByCustomerId(String customerId);
+
 }
