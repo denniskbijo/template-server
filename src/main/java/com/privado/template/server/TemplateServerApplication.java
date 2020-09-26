@@ -15,13 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @Slf4j
-public class Application implements CommandLineRunner {
+public class TemplateServerApplication implements CommandLineRunner {
 
 	@Autowired
 	private TemplateRepository repository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(TemplateServerApplication.class, args);
 	}
 
 	@Override
