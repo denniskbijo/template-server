@@ -2,8 +2,6 @@ package com.privado.template.server.bean;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -16,9 +14,6 @@ import lombok.Data;
  */
 @Data
 public class Field {
-
-	@Id
-	private String id;
 
 	@org.springframework.data.mongodb.core.mapping.Field("field")
 	@JsonProperty("field")
