@@ -66,9 +66,10 @@ public class TemplateServerApplication implements CommandLineRunner {
 				+ "		{ \"field\" : \"dpo_contact_details\", \"label\" : \"Data Protection Officer Contact Details\", \"data_type\" :\"long-text\", \"default\" : \"Type contact details here..\", \"field_type\":	\"contact_details\", \"field_type_label\":	\"Contact Details\", \"is_removable\" : false, \"mandatory\": false}\n"
 				+ "	]\n" + "}\n";
 
-		log.info("Preloading Templates: " + repository.save(mapper.readValue(template1, Template.class)));
-		log.info(repository.save(mapper.readValue(template2, Template.class)).toString());
-		log.info(repository.save(mapper.readValue(template3, Template.class)).toString());
+		log.info("Preloading Templates: ");
+		repository.save(mapper.readValue(template1, Template.class));
+		repository.save(mapper.readValue(template2, Template.class));
+		repository.save(mapper.readValue(template3, Template.class));
 		// Fetch all templates
 		System.out.println("Templates found with findAll():");
 		System.out.println("-------------------------------");
