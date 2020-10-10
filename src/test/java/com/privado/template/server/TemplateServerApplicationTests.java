@@ -51,4 +51,13 @@ class TemplateServerApplicationTests {
 		assertEquals(3, templates.length);
 	}
 
+	@Test
+	void testPrepareTemplateForCustomer() throws Exception {
+		RequestBuilder request = MockMvcRequestBuilders.post("/te/customer/123/templates");
+		MvcResult result = mvc.perform(request).andReturn();
+		ObjectMapper mapper = new ObjectMapper();
+		Template template = mapper.readValue(result.getResponse().getContentAsString(), Template.class);
+		assertEquals("123", template.getCustomerId());
+	}
+
 }
