@@ -1,21 +1,14 @@
 package com.privado.template.server.controller;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.privado.template.server.assembler.TemplateAssembler;
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.exception.DocumentNotFoundException;
 import com.privado.template.server.service.TemplateService;
@@ -31,39 +24,31 @@ import com.privado.template.server.service.TemplateService;
 public class TemplateController {
 
 	@Autowired
-	TemplateService templateService;
-
-	@Autowired
-	TemplateAssembler templateAssembler;
+	private TemplateService templateService;
 
 	@GetMapping("")
-	public CollectionModel<EntityModel<Template>> getTemplates() {
-		List<EntityModel<Template>> templates = templateService.getTemplates().stream().map(templateAssembler::toModel)
-				.collect(Collectors.toList());
+	public List<Template> getTemplates() {
 
-		return CollectionModel.of(templates, linkTo(methodOn(TemplateController.class).getTemplates()).withSelfRel());
+		return templateService.getTemplates();
 	}
 
 	@GetMapping("/{id}")
-	public EntityModel<Template> getTemplateById(@PathVariable String id) {
-		Template template = templateService.getTemplateById(id);
-		return templateAssembler.toModel(template);
+	public Template getTemplateById(@PathVariable String id) {
 
+		return templateService.getTemplateById(id);
 	}
 
 	@GetMapping("/customer/{customerId}/templates")
-	public EntityModel<Template> getTemplateByCustomerId(@PathVariable String customerId)
+	public Template getTemplateByCustomerId(@PathVariable String customerId)
 			throws DocumentNotFoundException {
-		Template template = templateService.getTemplateByCustomerId(customerId);
-		return templateAssembler.toModel(template);
 
+		return templateService.getTemplateByCustomerId(customerId);
 	}
 
 	@PostMapping("/customer/{customerId}/templates")
-	public EntityModel<Template> prepareTemplateForCustomerId(@PathVariable String customerId) {
-		Template template = templateService.prepareTemplateForCustomerId(customerId);
-		return templateAssembler.toModel(template);
+	public Template prepareTemplateForCustomerId(@PathVariable String customerId) {
 
+		return templateService.prepareTemplateForCustomerId(customerId);
 	}
 
 }
