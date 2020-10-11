@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.controller.TemplateController;
+import com.privado.template.server.exception.DocumentNotFoundException;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
@@ -55,6 +56,15 @@ class TemplateServerApplicationTests {
 		ObjectMapper mapper = new ObjectMapper();
 		Template[] templates = mapper.readValue(result.getResponse().getContentAsString(), Template[].class);
 		assertEquals(3, templates.length);
+	}
+
+	@Test
+	@Order(3)
+	void testPrepareTemplateForCustomerThrowsDocumentNotFoundException() throws Exception {
+		String customerId = "123";
+		RequestBuilder request = MockMvcRequestBuilders.get("/te/customer/" + customerId + "/templates");
+		mvc.perform(request)
+				.andExpect(result -> assertTrue(result.getResolvedException() instanceof DocumentNotFoundException));
 	}
 
 	@Test
