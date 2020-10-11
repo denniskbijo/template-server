@@ -69,6 +69,16 @@ class TemplateServerApplicationTests {
 
 	@Test
 	@Order(4)
+	void testPrepareTemplateThrowsDocumentNotFoundExceptionWithMessage() throws Exception {
+		String customerId = "123";
+		RequestBuilder request = MockMvcRequestBuilders.get("/te/customer/" + customerId + "/templates");
+		mvc.perform(request)
+				.andExpect(result -> assertTrue(result.getResolvedException().getMessage()
+						.equals("No Template found for customer: " + customerId)));
+	}
+
+	@Test
+	@Order(5)
 	void testPrepareTemplateForCustomer() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.post("/te/customer/123/templates");
 		MvcResult result = mvc.perform(request).andReturn();
