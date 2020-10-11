@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.exception.DocumentNotFoundException;
+import com.privado.template.server.exception.InvalidCustomerIdException;
 import com.privado.template.server.service.TemplateService;
 
 /**
@@ -40,13 +41,13 @@ public class TemplateController {
 
 	@GetMapping("/customer/{customerId}/templates")
 	public Template getTemplateByCustomerId(@PathVariable String customerId)
-			throws DocumentNotFoundException {
+			throws DocumentNotFoundException, InvalidCustomerIdException {
 
 		return templateService.getTemplateByCustomerId(customerId);
 	}
 
 	@PostMapping("/customer/{customerId}/templates")
-	public Template prepareTemplateForCustomerId(@PathVariable String customerId) {
+	public Template prepareTemplateForCustomerId(@PathVariable String customerId) throws InvalidCustomerIdException {
 
 		return templateService.prepareTemplateForCustomerId(customerId);
 	}

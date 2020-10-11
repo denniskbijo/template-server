@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.privado.template.server.bean.Field;
 import com.privado.template.server.bean.Template;
 import com.privado.template.server.exception.DocumentNotFoundException;
+import com.privado.template.server.exception.InvalidCustomerIdException;
 import com.privado.template.server.repo.TemplateRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,8 +45,10 @@ public class TemplateService {
 	 * @param customerId
 	 * @return
 	 * @throws DocumentNotFoundException
+	 * @throws InvalidCustomerIdException
 	 */
-	public Template getTemplateByCustomerId(String customerId) throws DocumentNotFoundException {
+	public Template getTemplateByCustomerId(String customerId)
+			throws DocumentNotFoundException, InvalidCustomerIdException {
 		validateCustomerId(customerId);
 		log.debug("customerId: {}", customerId);
 		List<Template> resultTemplates = repo.findByCustomerId(customerId);
@@ -55,12 +58,13 @@ public class TemplateService {
 			throw new DocumentNotFoundException("No Template found for customer: " + customerId);
 	}
 
-	private void validateCustomerId(String customerId) {
+	private void validateCustomerId(String customerId) throws InvalidCustomerIdException {
 		// Validates if the customerId is numeric
 		Pattern pattern =Pattern.compile("-?\\d+");
 
 		if (!pattern.matcher(customerId).matches()) {
-			throw new NumberFormatException("CustomerId: " + customerId + " is not a number. Expected numeric value.");
+			throw new InvalidCustomerIdException(
+					"CustomerId: " + customerId + " is not a number. Expected numeric value.");
 		}
 
 	}
@@ -72,8 +76,10 @@ public class TemplateService {
 	 * 
 	 * @param customerId
 	 * @return
+	 * @throws InvalidCustomerIdException
 	 */
-	public Template prepareTemplateForCustomerId(String customerId) {
+	public Template prepareTemplateForCustomerId(String customerId) throws InvalidCustomerIdException {
+		validateCustomerId(customerId);
 		// Find all system templates
 		List<Template> systemTemplates = repo.findByCustomerId("system");
 
