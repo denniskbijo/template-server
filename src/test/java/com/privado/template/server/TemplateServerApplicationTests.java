@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +25,7 @@ import com.privado.template.server.controller.TemplateController;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TemplateServerApplicationTests {
 
 	private MockMvc mvc;
@@ -38,11 +42,13 @@ class TemplateServerApplicationTests {
 	}
 
 	@Test
+	@Order(1)
 	void contextLoads() {
 		assertTrue(templateController != null);
 	}
 
 	@Test
+	@Order(2)
 	void testGetAllTemplates() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.get("/te/");
 		MvcResult result = mvc.perform(request).andReturn();
@@ -52,6 +58,7 @@ class TemplateServerApplicationTests {
 	}
 
 	@Test
+	@Order(4)
 	void testPrepareTemplateForCustomer() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.post("/te/customer/123/templates");
 		MvcResult result = mvc.perform(request).andReturn();
