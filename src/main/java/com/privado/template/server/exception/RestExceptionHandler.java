@@ -38,9 +38,9 @@ class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ResponseBody
-	@ExceptionHandler(NumberFormatException.class)
+	@ExceptionHandler(InvalidCustomerIdException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	private ResponseEntity<Object> handleCustomerIdNumberFormat(NumberFormatException ex) {
+	private ResponseEntity<Object> handleCustomerIdNumberFormat(InvalidCustomerIdException ex) {
 		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
 		apiError.setMessage(ex.getMessage());
 		return buildResponseEntity(apiError);
