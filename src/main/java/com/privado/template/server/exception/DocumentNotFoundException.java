@@ -6,7 +6,12 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class DocumentNotFoundException extends Exception {
-	private String message;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2568760818710122396L;
+
+	private final String message;
 
 	public DocumentNotFoundException(String message) {
 		super();
