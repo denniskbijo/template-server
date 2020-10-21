@@ -2,6 +2,7 @@ package com.privado.template.server;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -65,7 +66,8 @@ class TemplateServerApplicationTests {
 		String customerId = "123";
 		RequestBuilder request = MockMvcRequestBuilders.get("/te/customer/" + customerId + "/templates");
 		mvc.perform(request)
-				.andExpect(result -> assertTrue(result.getResolvedException() instanceof DocumentNotFoundException));
+				.andExpect(result -> assertTrue(result.getResolvedException() instanceof DocumentNotFoundException))
+				.andExpect(status().isNotFound());
 	}
 
 	@Test
